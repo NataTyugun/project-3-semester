@@ -8,20 +8,19 @@ def main():
       #данные пользователя
 
       user_city = input('Введите город: ')
-      user_data = parse(input('Введите дату (прогноз на 7 дней!): ')).strftime('%Y-%m-%d')
+      user_data = parse(input('Введите дату (прогноз на 7 дней!): ')).strftime('%Y-%d-%m')
       user_gender = input('Выберите м\ж: ')
       user_activity = input('Выберите прогулка\спорт\ежедневные дела: ')
 
       city_name = get_weather(user_city, user_data)[0]
       info_weather = get_weather(user_city, user_data)[1]
 
-      image(user_city, user_data, user_gender, user_activity)
+      # image(user_city, user_data, user_gender, user_activity)
 
       return (f'🌎 В городе {city_name} {parse(user_data).strftime("%d.%m.%y").lower()} будет {info_weather["weather"]["description"].lower()}'
               f'\n🌎 Средняя температура {round(info_weather["temp"])} C | скорость ветра {round(info_weather["wind_spd"])} м/с '
               f'\n🌎 Рекомендуем надеть {get_clouses(user_city, user_data, user_gender, user_activity)[0][0]}'
-              f'\n{recomendation(user_data, user_city)}')
-
+              f'\n🌎 {", ".join(recomendation(user_data, user_city))}')
 
 # функция для получения информации с сайта погоды, исходя из данных пользователя, возвращает название города и сведения о погоде
 
@@ -30,10 +29,11 @@ def get_weather(user_city, user_data):
 
       info_weather = {} # из 7 дней выбираем тот, который нужен пользователю
       for item in r["data"]:
-            if str(item['valid_date']) == user_data:
+            if str(item['datetime']) == user_data:
                   info_weather = item
 
       return [r["city_name"], info_weather]
+
 
 # функция для вывода информации о погоде, тут можно посмотреть на ключи и значения, возвращает краткие сведения о погоде
 
@@ -137,7 +137,7 @@ def get_clouses(user_city, user_data, user_gender, user_activity):
 def image(user_city, user_data, user_gender, user_activity):
 
       # удаление страрых фотографий из папки
-      dir = 'C:/Users/volem/PycharmProjects/pythonProject/2 курс/autfits'
+      dir = os.getcwd()+'\autfits'
       for f in os.listdir(dir):
             os.remove(os.path.join(dir, f))
 
@@ -145,8 +145,13 @@ def image(user_city, user_data, user_gender, user_activity):
       clouses = get_clouses(user_city, user_data, user_gender, user_activity)
 
       for item in (clouses[0][0].split(",")):
-            google_crawler = GoogleImageCrawler(downloader_threads=4, storage={'root_dir': dir})  ##storage - расположениt папки итогового хранения изображений
-            google_crawler.crawl(keyword=user_gender + item, max_num=10)  ##keyword - запрос в гугл изсображения, max_num - количество скачиваемых изображений
+            # Создаем папки, если их нет
+            os.mkdir(item)
+
+            temp_dir = f'{dir}\\{item.strip()}'
+
+            google_crawler = GoogleImageCrawler(downloader_threads=4, storage={'root_dir': temp_dir})  ##storage - расположениt папки итогового хранения изображений
+            google_crawler.crawl(keyword=f'{"женщина" if user_gender == "ж" else "мужчина"}' + item, max_num=3)  ##keyword - запрос в гугл изсображения, max_num - количество скачиваемых изображений
 
       return 'Изображение в папке!'
 

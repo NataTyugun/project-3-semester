@@ -8,56 +8,41 @@ def main():
       #данные пользователя
 
       user_city = input('Введите город: ')
-      user_data = parse(input('Введите дату (прогноз на 7 дней!): ')).strftime('%Y-%d-%m')
+      user_date = parse(input('Введите дату (прогноз на 7 дней!): ')).strftime('%Y-%m-%d')
       user_gender = input('Выберите м\ж: ')
       user_activity = input('Выберите прогулка\спорт\ежедневные дела: ')
 
-      city_name = get_weather(user_city, user_data)[0]
-      info_weather = get_weather(user_city, user_data)[1]
+      city_name = get_weather(user_city, user_date)[0]
+      info_weather = get_weather(user_city, user_date)[1]
 
-      # image(user_city, user_data, user_gender, user_activity)
+      name_city_and_date = f'В городе {city_name} {parse(user_date).strftime("%d.%m.%y").lower()} будет {info_weather["weather"]["description"].lower()}'
+      weather = f'Средняя температура {round(info_weather["temp"])} C | скорость ветра {round(info_weather["wind_spd"])} м/с'
+      recomendation_clouses = f'Рекомендуем надеть {get_clouses(user_city, user_date, user_gender, user_activity)[0][0]}'
+      other_recomendation_clouses = f'{", ".join(recomendation(user_date, user_city))}'
 
-      return (f'🌎 В городе {city_name} {parse(user_data).strftime("%d.%m.%y").lower()} будет {info_weather["weather"]["description"].lower()}'
-              f'\n🌎 Средняя температура {round(info_weather["temp"])} C | скорость ветра {round(info_weather["wind_spd"])} м/с '
-              f'\n🌎 Рекомендуем надеть {get_clouses(user_city, user_data, user_gender, user_activity)[0][0]}'
-              f'\n🌎 {", ".join(recomendation(user_data, user_city))}')
+      image(user_city, user_date, user_gender, user_activity)
+
+      return (f'🌎 {name_city_and_date}'
+              f'\n🌎 {weather}'
+              f'\n🌎 {recomendation_clouses}'
+              f'\n🌎 {other_recomendation_clouses}')
 
 # функция для получения информации с сайта погоды, исходя из данных пользователя, возвращает название города и сведения о погоде
 
-def get_weather(user_city, user_data):
+def get_weather(user_city, user_date):
       r = requests.get(f'https://api.weatherbit.io/v2.0/forecast/daily?city={user_city},RU&key=3a37beb19b3b4d8981d9e4911cd60f77&lang=ru&days=7').json() # с сайта получаем прогноз погоды на 7 дней в введенном городе в формате json, ттолько RU города
 
       info_weather = {} # из 7 дней выбираем тот, который нужен пользователю
       for item in r["data"]:
-            if str(item['datetime']) == user_data:
+            if str(item['datetime']) == user_date:
                   info_weather = item
 
       return [r["city_name"], info_weather]
 
-
-# функция для вывода информации о погоде, тут можно посмотреть на ключи и значения, возвращает краткие сведения о погоде
-
-def look_weather(user_data, user_city, user_gender, user_activity):
-      #print(f'\n В городе {city_name} {parse(user_data).strftime("%d %B")} {info_weather["weather"]["description"]}'
-      #      f'\n Средняя температура {info_weather["temp"]} C'
-      #      f'\n Макс температура {info_weather["max_temp"]} C'
-      #      f'\n Мин температура {info_weather["min_temp"]} C'
-      #      f'\n Ощущается как {info_weather["app_min_temp"]} - {info_weather["app_max_temp"]} C'
-      #      f'\n Скорость ветра {info_weather["wind_spd"]} m/c'
-      #      f'\n Вероятность осадков {info_weather["pop"]} % '
-      #      f'\n Влажность {info_weather["rh"]} %'
-      #      f'\n Глубина луж {info_weather["precip"]} мм'
-      #      f'\n Снег {info_weather["snow"]} мм'
-      #      f'\n Глубина снега {info_weather["snow_depth"]} мм'
-      #      f'\n УФ индекс {info_weather["uv"]}'
-      #      )
-
-      return
-
 # функция для рекомендаций исходя из погоды, возвращает особые рекомендации
 
-def recomendation(user_data, user_city):
-      info_weather = get_weather(user_city, user_data)[1]
+def recomendation(user_date, user_city):
+      info_weather = get_weather(user_city, user_date)[1]
 
       # иницилизация переменных, которые хранят дополнительные советы
       rec_wind = ''
@@ -134,25 +119,30 @@ def get_clouses(user_city, user_data, user_gender, user_activity):
 
 # функция для получения картинок по запросу
 
-def image(user_city, user_data, user_gender, user_activity):
-
-      # удаление страрых фотографий из папки
-      dir = os.getcwd()+'\autfits'
-      for f in os.listdir(dir):
-            os.remove(os.path.join(dir, f))
+def image(user_city, user_date, user_gender, user_activity):
 
       # получение рекоммендации об одежде
-      clouses = get_clouses(user_city, user_data, user_gender, user_activity)
+      clouses = get_clouses(user_city, user_date, user_gender, user_activity)
 
-      for item in (clouses[0][0].split(",")):
-            # Создаем папки, если их нет
-            os.mkdir(item)
+      os.chdir("autfits") # изменение текущего каталога на autfits
 
-            temp_dir = f'{dir}\\{item.strip()}'
+      for item in os.listdir(): # удаление страрых папок из папки
+            for item2 in os.listdir(item):
+                  os.remove(item + '/' + item2)
+            os.rmdir(item)
 
-            google_crawler = GoogleImageCrawler(downloader_threads=4, storage={'root_dir': temp_dir})  ##storage - расположениt папки итогового хранения изображений
-            google_crawler.crawl(keyword=f'{"женщина" if user_gender == "ж" else "мужчина"}' + item, max_num=3)  ##keyword - запрос в гугл изсображения, max_num - количество скачиваемых изображений
+      for item in clouses[0][0].split(','): # Создаем папки
+            item = item.strip().replace("/", ", ") # удаляем пробелы и заменяем слеш
+            os.mkdir(item) # создаем пустую папку в текущей директори
+            os.chdir(item) # изменение текущего каталога на item
+            temp_dir = os.getcwd() # запись текущей директории в временную переменную
 
-      return 'Изображение в папке!'
+            google_crawler = GoogleImageCrawler(downloader_threads=1, storage={'root_dir': temp_dir})  # добавляем в текущую папку изображения, storage - расположение папки итогового хранения изображений
+            google_crawler.crawl(keyword=f'{"женские" if user_gender == "ж" else "мужские"} {item}', max_num=1)  #keyword - запрос в гугл изсображения, max_num - количество скачиваемых изображений
+
+            os.chdir("..") # возврвщаемся в autfits
+
+      os.chdir("..")
+      return 
 
 print(main())

@@ -2,9 +2,9 @@
 
 import sys  # sys нужен для передачи argv в QApplication
 from PyQt5 import QtWidgets
-import интерфейс3  # Это наш конвертированный файл дизайна
+import window1  # Это наш конвертированный файл дизайна
 
-class ExampleApp(QtWidgets.QMainWindow, интерфейс3.Ui_MainWindow):
+class ExampleApp(QtWidgets.QMainWindow, window1.Ui_MainWindow):
     def __init__(self):
         # Это здесь нужно для доступа к переменным, методам
         # и т.д. в файле design.py

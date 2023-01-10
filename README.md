@@ -31,5 +31,5 @@
 ![image](https://user-images.githubusercontent.com/99788525/211534176-2150bc78-b61a-49f2-936b-75075d23bb4a.png)
 
 ## Второe окно получает на вход дату, пол и активность пользователя ##
-![image](https://user-images.githubusercontent.com/99788525/211537320-4073e94a-2776-4f33-b932-096a132c2f3c.png)
+![image](https://user-images.githubusercontent.com/99788525/211537620-cc244577-b367-4b82-bc8c-e20ee1086e9a.png)
 

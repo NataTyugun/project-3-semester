@@ -40,7 +40,7 @@
 5. Получение картинок одежды на основе рекоммендации при помощи модуля GoogleImageCrawler.
 6. Для удобного использования программы прописаны ошибки.
 
-![image](https://user-images.githubusercontent.com/99526918/212069023-6a4db738-03ea-4e38-a1c4-5a2b01dd4196.png)
+![image](https://user-images.githubusercontent.com/99788525/212084261-14ad3acc-64a6-4df2-8e90-5be3687b904a.png)
 
 ***
 Работу выполнили: Воробьева Анастасия, Тюгун Наталья

@@ -31,10 +31,12 @@
 ![image](https://user-images.githubusercontent.com/99526918/212069090-69383765-e876-46a7-8395-6cb136671eda.png)
 
 
-## Второe окно получает на вход дату, пол и активность пользователя ##
-![image](https://user-images.githubusercontent.com/99526918/212069260-e5776daa-f2f0-4c14-b5de-5e8276aef959.png)
-
 ## Ошибки
 ![image](https://user-images.githubusercontent.com/99526918/212069023-6a4db738-03ea-4e38-a1c4-5a2b01dd4196.png)
+
+
+## Второe окно получает на вход дату, пол и активность пользователя ##
+![image](https://user-images.githubusercontent.com/99526918/212069507-7a507169-dca5-4b94-92ec-03ca5a8bcf38.png)
+
 
 

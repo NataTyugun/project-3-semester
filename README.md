@@ -28,8 +28,13 @@
 ### ИТОГИ ### 
 
 ## Первое окно получает на вход название города пользователя  ##
-![image](https://user-images.githubusercontent.com/99788525/211534176-2150bc78-b61a-49f2-936b-75075d23bb4a.png)
+![image](https://user-images.githubusercontent.com/99526918/212069090-69383765-e876-46a7-8395-6cb136671eda.png)
+
 
 ## Второe окно получает на вход дату, пол и активность пользователя ##
-![image](https://user-images.githubusercontent.com/99788525/211537620-cc244577-b367-4b82-bc8c-e20ee1086e9a.png)
+![image](https://user-images.githubusercontent.com/99526918/212069260-e5776daa-f2f0-4c14-b5de-5e8276aef959.png)
+
+## Ошибки
+![image](https://user-images.githubusercontent.com/99526918/212069023-6a4db738-03ea-4e38-a1c4-5a2b01dd4196.png)
+
 

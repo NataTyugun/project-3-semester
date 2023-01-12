@@ -10,7 +10,7 @@
 1. скайчайте все файлы из папки MAIN в одну директорию
 2. установите перечисленные ниже модули
 3. запустите код (расширение .py)
->[MAIN](https://github.com/vvoroby/project-2-semester/tree/main/MAIN)
+>[MAIN](https://github.com/NataTyugun/project-3-semester/blob/main/final_job/LAST.py)
 
 ## Работа программы ##
 
@@ -20,7 +20,7 @@
 * Пол пользователя, для более точной подборки
 * Выбор вида активности на день (спорт\прогулка на улице\повседневные дела)
 
-![image](https://user-images.githubusercontent.com/99526918/212069090-69383765-e876-46a7-8395-6cb136671eda.png)
+![image](https://user-images.githubusercontent.com/99788525/212075167-dad06b7a-604b-40e0-94dc-af1b730f9f1b.png)
 
 Пользователь получит информации в следующем формате:
 * Погода на необходиму дату (температура\ветер\состояние)

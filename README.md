@@ -20,7 +20,7 @@
 * Пол пользователя, для более точной подборки
 * Выбор вида активности на день (спорт\прогулка на улице\повседневные дела)
 
-![image](https://user-images.githubusercontent.com/99788525/212075167-dad06b7a-604b-40e0-94dc-af1b730f9f1b.png) ![image](https://user-images.githubusercontent.com/99788525/212076201-17829983-7585-4fbd-ace3-a21214d5278e.png)
+![ридми](https://user-images.githubusercontent.com/99788525/212077531-10ed9f52-31b1-44ae-8c42-7a66173a559a.png)
 
 
 Пользователь получит информации в следующем формате:
